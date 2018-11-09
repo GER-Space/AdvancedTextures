@@ -4,27 +4,35 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace AdvancesTextures
+namespace AdvancedTextures
 {
     public class AdvancedTextures : PartModule
     {
-
+        [KSPField(isPersistant = false)]
         public string newShader = null;
-
+        [KSPField(isPersistant = false)]
         public string transforms = "Any";
-
+        [KSPField(isPersistant = false)]
         public string newMaterial = "";
+        [KSPField(isPersistant = false)]
         public string BuiltinIndex = "0";
-
+        [KSPField(isPersistant = false)]
         public string _MainTex = null;          // texture
+        [KSPField(isPersistant = false)]
         public string _BumpMap = null;          // normal map
+        [KSPField(isPersistant = false)]
         public string _ParallaxMap = null;      // height map
+        [KSPField(isPersistant = false)]
         public string _Emissive = null;         // legacy shader  U4 name for emissive map
+        [KSPField(isPersistant = false)]
         public string _EmissionMap = null;      // U5 std shader name for emissive map
+        [KSPField(isPersistant = false)]
         public string _MetallicGlossMap = null; // U5 metallic (standard shader)
+        [KSPField(isPersistant = false)]
         public string _OcclusionMap = null;     // ambient occlusion
+        [KSPField(isPersistant = false)]
         public string _SpecGlossMap = null;     // U5 metallic (standard shader - spec gloss setup)
-
+        
         private int textureIndex = 0;
         private List<string> targetTransforms = new List<string>();
 
@@ -35,7 +43,7 @@ namespace AdvancesTextures
         public void Start()
         {
 
-            //Log.Normal("AdvTexture called on " + staticInstance.model.name);
+//            Log.Normal("called on " + part.name);
 
             if (!int.TryParse(BuiltinIndex, out textureIndex))
             {
@@ -43,7 +51,7 @@ namespace AdvancesTextures
             }
 
             targetTransforms = transforms.Split(seperators, StringSplitOptions.RemoveEmptyEntries).ToList();
-
+//            Log.Normal("Transforms: " + transforms);
 
             foreach (MeshRenderer renderer in gameObject.GetComponentsInChildren<MeshRenderer>(true))
             {
@@ -84,7 +92,7 @@ namespace AdvancesTextures
                 Texture2D newTexture = KKGraphics.GetTexture(texturename, isNormal, textureIndex);
                 if (newTexture != null)
                 {
-
+                    //Log.Normal("setting Texture: " + texturename +  " on: " + targetname ) ;
                     renderer.material.SetTexture(targetname, newTexture);
 
                 }

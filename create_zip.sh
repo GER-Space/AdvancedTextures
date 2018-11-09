@@ -19,7 +19,7 @@ if (test $1 != "") ; then
 VERSION=${VERSION}_$1
 fi
 
-FILENAME="Advanced-${VERSION}.zip"
+FILENAME="${PROJECTNAME}-${VERSION}.zip"
 
 
 

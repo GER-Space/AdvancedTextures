@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
-namespace AdvancesTextures
+namespace AdvancedTextures
 {
     class KKGraphics
     {

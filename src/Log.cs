@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace AdvancesTextures
+namespace AdvancedTextures
 {
     internal class Log
     {
@@ -20,7 +20,7 @@ namespace AdvancesTextures
         /// <param name="message"></param>
         internal static void UserInfo(string message)
         {
-            UnityEngine.Debug.Log("AdvancesTextures: " + message);
+            UnityEngine.Debug.Log("AdvancedTextures: " + message);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace AdvancesTextures
         /// <param name="message"></param>
         internal static void UserWarning(string message)
         {
-            UnityEngine.Debug.LogWarning("AdvancesTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
+            UnityEngine.Debug.LogWarning("AdvancedTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace AdvancesTextures
         /// <param name="message"></param>
         internal static void UserError(string message)
         {
-            UnityEngine.Debug.LogError("AdvancesTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
+            UnityEngine.Debug.LogError("AdvancedTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace AdvancesTextures
         internal static void Normal(string message)
         {
 #if DEBUG
-            UnityEngine.Debug.Log("AdvancesTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
+            UnityEngine.Debug.Log("AdvancedTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
 #endif
         }
 
@@ -59,7 +59,7 @@ namespace AdvancesTextures
         internal static void Warning(string message)
         {
 #if DEBUG
-            UnityEngine.Debug.LogWarning("AdvancesTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
+            UnityEngine.Debug.LogWarning("AdvancedTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
 #endif
         }
 
@@ -70,7 +70,7 @@ namespace AdvancesTextures
         internal static void Error(string message)
         {
 #if DEBUG
-            UnityEngine.Debug.LogError("AdvancesTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
+            UnityEngine.Debug.LogError("AdvancedTextures: " + new StackFrame(1, true).GetMethod().Name + ": " + message);
 #endif
         }
 
