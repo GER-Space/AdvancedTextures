@@ -6,6 +6,45 @@ using UnityEngine;
 
 namespace AdvancedTextures
 {
+    [KSPAddon(KSPAddon.Startup.MainMenu, true)]
+    public class PreviwFixer : MonoBehaviour
+    {
+        public void Start()
+        {
+            Log.Normal("Mod started");
+            foreach (AvailablePart apart in PartLoader.LoadedPartsList)
+            {
+                foreach (AdvancedTextures atexture in apart.partPrefab.GetComponentsInChildren<AdvancedTextures>(true))
+                {
+                    //atexture.enabled = true; 
+                    atexture.Start();
+                    //Log.Normal("Setting Texture on " + apart.name);
+                    //apart.iconPrefab.SetActive(true);
+                    AdvancedTextures iconTextures = apart.iconPrefab.AddComponent<AdvancedTextures>();
+
+                    //iconTextures.enabled = true;
+
+                    iconTextures.transforms = atexture.transforms;
+                    iconTextures.BuiltinIndex = atexture.BuiltinIndex;
+                    iconTextures._MainTex = atexture._MainTex;
+                    iconTextures._BumpMap = atexture._BumpMap;
+                    iconTextures._Emissive = atexture._Emissive;
+                    iconTextures._EmissionMap = atexture._EmissionMap;
+                    iconTextures.newShader = null;
+                    iconTextures.newMaterial = "";
+                    iconTextures.Start();
+                    //atexture.ApplySettings(apart.iconPrefab, false);
+
+
+                }
+            }
+
+        }
+    }
+
+
+
+
     public class AdvancedTextures : PartModule
     {
         [KSPField(isPersistant = false)]
@@ -32,21 +71,22 @@ namespace AdvancedTextures
         public string _OcclusionMap = null;     // ambient occlusion
         [KSPField(isPersistant = false)]
         public string _SpecGlossMap = null;     // U5 metallic (standard shader - spec gloss setup)
-        
+
         private int textureIndex = 0;
         private List<string> targetTransforms = new List<string>();
 
         private string[] seperators = new string[] { " ", ",", ";" };
 
 
+
         public void Start()
         {
 
-//            Log.Normal("called on " + part.name);
+            //            Log.Normal("called on " + part.name);
 
             if (!int.TryParse(BuiltinIndex, out textureIndex))
             {
-                Log.UserError("AdvancedTextures: could not parse BuiltinIndex " + BuiltinIndex);
+                Log.UserError("could not parse BuiltinIndex " + BuiltinIndex);
             }
 
             targetTransforms = transforms.Split(seperators, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -58,6 +98,14 @@ namespace AdvancedTextures
             GameEvents.onEditorVariantApplied.Add(OnEditorVariantApplied);
 
         }
+
+        public void OnDestroy()
+        {
+            GameEvents.onEditorVariantApplied.Remove(OnEditorVariantApplied);
+            //            GameEvents.onLevelWasLoaded.Remove(OnLevelLoaded);
+        }
+
+
 
         public void OnEditorVariantApplied(Part part, PartVariant variant)
         {
@@ -77,8 +125,7 @@ namespace AdvancedTextures
                     continue;
                 }
 
-                // Log.Normal("Processing Transform: " + renderer.transform.name);
-
+                //Log.Normal("Processing Transform: " + renderer.transform.name);
                 if (newMaterial != "")
                 {
                     ReplaceMaterial(renderer, newMaterial);
