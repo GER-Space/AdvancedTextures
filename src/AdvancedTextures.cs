@@ -39,7 +39,6 @@ namespace AdvancedTextures
         private string[] seperators = new string[] { " ", ",", ";" };
 
 
-
         public void Start()
         {
 
@@ -51,8 +50,26 @@ namespace AdvancedTextures
             }
 
             targetTransforms = transforms.Split(seperators, StringSplitOptions.RemoveEmptyEntries).ToList();
-//            Log.Normal("Transforms: " + transforms);
+            //            Log.Normal("Transforms: " + transforms);
 
+
+            ApplySettings();
+
+            GameEvents.onEditorVariantApplied.Add(OnEditorVariantApplied);
+
+        }
+
+        public void OnEditorVariantApplied(Part part, PartVariant variant)
+        {
+            if (part == this.part)
+            {
+                ApplySettings();
+            }
+
+        }
+
+        public void ApplySettings()
+        {
             foreach (MeshRenderer renderer in gameObject.GetComponentsInChildren<MeshRenderer>(true))
             {
                 if (!transforms.Equals("Any", StringComparison.CurrentCultureIgnoreCase) && !targetTransforms.Contains(renderer.transform.name))
