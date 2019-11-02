@@ -101,6 +101,7 @@ namespace AdvancedTextures
 
         public void OnDestroy()
         {
+            Log.Normal("called");
             GameEvents.onEditorVariantApplied.Remove(OnEditorVariantApplied);
             //            GameEvents.onLevelWasLoaded.Remove(OnLevelLoaded);
         }
